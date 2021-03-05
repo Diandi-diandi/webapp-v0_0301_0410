@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Jerry's Design</title>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="webmain.css"/>
+	</head>
+
+	<body>
+
+		<div id="UI">
+			<canvas id="cava"></canvas>
+		</div>
+
+	<!-- Header -->
+		<header id="header">
+			<div class="logo">
+
+			</div>
+			<button id="btnMENU"><h3>&nbsp;≡&nbsp;</h3></button>
+		</header>
+
+	<!-- Nav -->
+		<nav id="menu">
+			<ul>
+
+			</ul>
+		</nav>
+		<section id="topic">
+			<div>
+				<button id="b1" class="avg3">search</button>
+				<button id="b2" class="avg3">pesona</button>
+				<button id="b3" class="avg3">message</button>
+			</div>
+		</section>
+
+		<section id="banner">
+		</section>
+		<section id="post">
+			<div class="inner">
+				
+			</div>
+		</section>
+		<section id="post2">
+			<div class="inner">
+				
+			</div>
+		</section>
+		<section id="post3">
+			<div class="inner">
+				
+			</div>
+		</section>
+		<footer id="footer">
+			<button id="reset" style="position: absolute;left:40%;top:-50%;width:20%;">reset</button>
+		</footer>
+	</body>
+
+	<script>
+		var Color = new Array(5);
+		Color[0] = "#B8AA95";
+		Color[1] = "#FFE4B8";
+		Color[2] = "#AE5A54";
+		Color[3] = "rgba(174, 90, 84, 0.8)";
+		Color[4] = "rgba(255, 228, 184, 0.8)";
+
+		var canvas = document.getElementById("cava");
+		var context = canvas.getContext("2d");
+
+		function resize(){
+
+		}
+		var header = document.getElementById("header");
+		var menu = document.getElementById("menu");
+		var btnMENU = document.getElementById("btnMENU");
+		var topic = document.getElementById("topic");
+		var banner = document.getElementById("banner");
+		var post = document.getElementById("post");
+		var post2 = document.getElementById("post2");
+		var post3 = document.getElementById("post3");
+		var reset = document.getElementById("reset");
+
+		window.onload = function(){
+			preload();
+		}
+
+		function preload(){
+			header.style.transition = "1s ease 0.5s";
+			//menu.style.transition = "1s ease 0s";
+			topic.style.transition = "1s ease 0s";
+			banner.style.transition = "1s ease 0s";
+			post.style.transition = "1s ease 1s";
+			post2.style.transition = "1s ease 1.33s";
+			post3.style.transition = "1s ease 1.66s";
+			header.style.left = "0%";
+			//menu.style.left = "0%";
+			topic.style.left = "0%";
+			banner.style.left = "0%";
+			post.style.top = "0%";
+			post2.style.top = "0%";
+			post3.style.top = "0%";
+		}
+
+		function reload(){
+
+			header.style.transition = "0s";
+			//menu.style.transition = "0s";
+			topic.style.transition = "0s";
+			banner.style.transition = "0s";
+			post.style.transition = "0s";
+			post2.style.transition = "0s";
+			post3.style.transition = "0s";
+
+			header.style.left = "100%";
+			//menu.style.left = "-50%";
+			topic.style.left = "-100%";
+			banner.style.left = "-100%";
+			post.style.top = "70%";
+			post2.style.top = "70%";
+			post3.style.top = "70%";
+
+			var until = setTimeout(preload, 200);
+
+		}
+		btnMENU.onclick = function(){
+			if(menu.style.left == "0%"){
+				menu.style.left = "-50%";
+			}
+			else{
+				menu.style.left = "0%";
+			}
+		}
+		var mx,my = 0;
+		reset.onclick = function(){
+			reload();
+		}
+
+		var b1 = document.getElementById("b1");
+		var b2 = document.getElementById("b2");
+		var b3 = document.getElementById("b3");
+
+		var url = 'action.php';
+
+        b1.onclick = function(){
+        	var formData = new FormData();
+        	formData.append('userid', '1'); // send '1' instead of '01'
+        	formData.append('action', 'search');
+        	formData.append('category', 'food');
+			// I assume that search the collection of the given userid
+			// return the username and user's collection of restaurants
+        	postPHP(url, formData);
+        }
+        b2.onclick = function(){
+        	var formData = new FormData();
+        	formData.append('userid', '2');
+        	formData.append('action', 'pesona'); // what is 'pesona' ??
+        	postPHP(url, formData);
+        }
+        b3.onclick = function(){
+        	var formData = new FormData();
+        	formData.append('userid', '1');
+        	formData.append('action', 'message');
+        	postPHP(url, formData);
+        }
+    	function postPHP(URL, DATA){
+	        fetch(URL, { method: 'POST', body: DATA })
+	        .then(function (response) {
+	          return response.json();
+	        })
+	        .then(function (body) {
+	          console.log(body);
+	        });
+	    }
+
+	</script>
+</html>
